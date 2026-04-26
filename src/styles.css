@@ -1,0 +1,148 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Olive brand tokens */
+  --color-mint: var(--mint);
+  --color-mint-2: var(--mint-2);
+  --color-leaf: var(--leaf);
+  --color-leaf-deep: var(--leaf-deep);
+  --color-forest: var(--forest);
+  --color-ink: var(--ink);
+  --color-tan: var(--tan);
+  --color-success: var(--success);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+
+  --font-display: "Pally", "Fraunces", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 1rem;
+
+  /* Exact brand colors from oliveapp.com */
+  --mint: #F5FAF6;
+  --mint-2: #EAF2EC;
+  --leaf: #AEB93E;       /* olive yellow-green accent */
+  --leaf-deep: #8F9838;  /* darker accent */
+  --forest: #1F3824;     /* dark green CTA / headings */
+  --ink: #1F1F1F;
+  --tan: #B47E54;
+  --success: #386641;
+  --warn: #FFFA6B;
+  --danger: #FCC1C1;
+
+  --background: var(--mint);
+  --foreground: #2D2D2D;
+  --card: #FFFFFF;
+  --card-foreground: #1F1F1F;
+  --popover: #FFFFFF;
+  --popover-foreground: #1F1F1F;
+  --primary: var(--forest);
+  --primary-foreground: var(--mint);
+  --secondary: #EAF2EC;
+  --secondary-foreground: var(--forest);
+  --muted: #EAF2EC;
+  --muted-foreground: #6B6B6B;
+  --accent: var(--leaf);
+  --accent-foreground: var(--forest);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: #FFFFFF;
+  --border: #E7E6E680;
+  --input: #E7E6E680;
+  --ring: var(--leaf);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #FFFFFF;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+    color: var(--color-forest);
+    font-weight: 600;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .text-balance { text-wrap: balance; }
+  .bg-mint { background-color: var(--mint); }
+  .bg-mint-grad { background: linear-gradient(180deg, #F5FAF6 0%, #F5FAF6 100%); }
+
+  /* Marquee */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--marquee-duration, 40s) linear infinite;
+  }
+  .marquee-rev { animation-direction: reverse; }
+  @keyframes marquee {
+    from { transform: translate3d(0,0,0); }
+    to { transform: translate3d(-50%,0,0); }
+  }
+
+  /* Fade up on scroll-trigger via .in-view */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in-view { opacity: 1; transform: none; }
+
+  .btn-forest {
+    @apply inline-flex items-center gap-2 rounded-full bg-forest text-mint px-6 py-3 text-sm font-medium transition-all;
+  }
+  .btn-forest:hover { transform: translateY(-1px); box-shadow: 0 14px 30px -14px rgba(31,56,36,.5); }
+
+  .ring-soft {
+    box-shadow: 0 1px 0 rgba(31,56,36,.04), 0 30px 60px -30px rgba(31,56,36,.18);
+  }
+
+  .num-roll {
+    display: inline-flex;
+    overflow: hidden;
+    height: 1em;
+    line-height: 1;
+  }
+  .num-roll span {
+    display: block;
+    animation: roll 2s cubic-bezier(.7,0,.2,1) forwards;
+  }
+  @keyframes roll {
+    from { transform: translateY(-90%); }
+    to { transform: translateY(0); }
+  }
+}
